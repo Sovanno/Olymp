@@ -10,10 +10,10 @@ namespace ConsoleApp1
         public string month;
         public string year;
         public string group;
-        public string dis;
-        public string oze;
+        public string[] dis;
+        public string[] oze;
 
-        public Stud(string fio, string year, string month, string day, string group, string dis, string oze)
+        public Stud(string fio, string year, string month, string day, string group, string[] dis, string[] oze)
         {
             this.fio = fio;
             this.day = day;
@@ -31,7 +31,7 @@ namespace ConsoleApp1
         {
             List<Stud> list = new List<Stud>();
             string asd;
-            int qwerty = 0;
+            int qwerty = 0, zxcv = 0;
             while (true)
             {
                 Console.WriteLine(@"
@@ -56,10 +56,17 @@ namespace ConsoleApp1
                     string year = Console.ReadLine();
                     Console.WriteLine("Введите группа");
                     string group = Console.ReadLine();
-                    Console.WriteLine("Введите предмет");
-                    string dis = Console.ReadLine();
-                    Console.WriteLine("Введите оценка");
-                    string oze = Console.ReadLine();
+                    Console.WriteLine("Колличество прдметов");
+                    zxcv = Convert.ToInt32(Console.ReadLine());
+                    string[] dis = new string[zxcv];
+                    string[] oze = new string[zxcv];
+                    for (int i = 0; i < zxcv; i++)
+                    {
+                        Console.WriteLine("Введите предмет");
+                        dis[i] = Console.ReadLine();
+                        Console.WriteLine("Введите оценка");
+                        oze[i] = Console.ReadLine();
+                    }
                     list.Add(new Stud(fio, year, month, day, group, dis, oze));
                 }
                 else if (num == "2")
@@ -88,11 +95,14 @@ namespace ConsoleApp1
                 {
                     for (int i = 0; i < list.Count; i++)
                     {
-                        if (list[i].oze == "0")
+                        for (int j = 0; j < list[i].oze.Length; j++)
                         {
-                            qwerty++;
-                            Console.WriteLine(list[i].fio);
-                            Console.ReadKey();
+                            if (list[i].oze[j] == "0")
+                            {
+                                qwerty++;
+                                Console.WriteLine(list[i].fio);
+                                Console.ReadKey();
+                            }
                         }
                     }
                     if (qwerty == 0)
@@ -109,12 +119,16 @@ namespace ConsoleApp1
                 {
                     for (int i = 0; i < list.Count; i++)
                     {
-                        if (list[i].oze == "5")
+                        for (int j = 0; j < list[i].oze.Length; j++)
                         {
-                            qwerty++;
-                            Console.WriteLine(list[i].fio);
-                            Console.ReadKey();
+                            if (list[i].oze[j] == "5")
+                            {
+                                qwerty++;
+                                Console.WriteLine(list[i].fio);
+                                Console.ReadKey();
+                            }
                         }
+                    
                     }
                     if (qwerty == 0)
                     {
@@ -132,15 +146,10 @@ namespace ConsoleApp1
                     {
                         if (Convert.ToInt32(list[i].year) >= 2003)
                         {
-                            if (Convert.ToInt32(list[i].month) >= 2)
-                            {
-                                if (Convert.ToInt32(list[i].day) >= 9)
-                                {
                                     qwerty++;
                                     Console.WriteLine(list[i].fio);
                                     Console.ReadKey();
-                                }
-                            }
+                             
                         }
                     }
                     if (qwerty == 0)
