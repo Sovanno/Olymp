@@ -9,7 +9,6 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace ConsoleApp4
 {
-    public delegate int WashAll();
     public class Car
     {
         public string mark { get; set; }
@@ -28,6 +27,14 @@ namespace ConsoleApp4
         {
             cars.Remove(car);
         }
+        public delegate void WashAl(Car car);
+        public void WashAll(WashAl da)
+        {
+            foreach (Car car in cars)
+            {
+                da(car);
+            }
+        }
     }
 
     public class CarWash
@@ -41,13 +48,6 @@ namespace ConsoleApp4
         public void Wash(Car car)
         {
             Console.WriteLine($"Помыли машину {car.mark}");
-        }
-        public void WashAll()
-        {
-            foreach (Car car in garage.cars)
-            {
-                Console.WriteLine($"Помыли машину {car.mark}");
-            }
         }
     }
 
@@ -66,10 +66,10 @@ namespace ConsoleApp4
             CarWash carWash = new CarWash(garage);
             carWash.Wash(car1);
             Console.WriteLine();
-            carWash.WashAll();
+            garage.WashAll(carWash.Wash);
             garage.RemoveCar(car3);
             Console.WriteLine();
-            carWash.WashAll();
+            garage.WashAll(carWash.Wash);
         }
     }
 }
